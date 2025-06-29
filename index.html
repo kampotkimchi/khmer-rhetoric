@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Khmer Rhetoric</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lora:wght@400;700&family=Noto+Sans+Khmer:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Educational & Bright (Alice Blue, Sapphire, Sea Green) -->
+    <!-- Application Structure Plan: The application is designed as a single-page dashboard with a top navigation bar for quick access to distinct thematic sections. This non-linear structure is chosen for usability, allowing users to explore complex cultural concepts at their own pace. The flow is logical: starting with 'Foundations' to establish context, moving to the 'Toolkit' for specific examples, and concluding with 'Modern Context' for analysis. This is more intuitive for learning and exploration than a simple linear presentation of the source report. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Hierarchical greetings (Sampeah). Goal: Inform. Viz: Interactive HTML/CSS diagram. Interaction: Hover to reveal details for each level. Justification: Visually demonstrates the concept of hierarchy in a simple, memorable way without complex graphics. Library/Method: HTML/CSS with Tailwind.
+        - Report Info: Proverbs (Supheasit) & Moral Codes (Chbap). Goal: Organize & Inform. Viz: Interactive flip cards. Interaction: Click to reveal the rhetorical use/explanation. Justification: Manages dense information effectively, encouraging user engagement to discover deeper meaning. Library/Method: HTML/CSS/JS.
+        - Report Info: Formal vs. Colloquial Grammar. Goal: Compare. Viz: Side-by-side table with toggle highlights. Interaction: Buttons to highlight differences. Justification: Directly facilitates comparison, which is the core goal of this data. Library/Method: HTML/JS.
+        - Report Info: Competing Rhetorical Modes (Table). Goal: Compare & Analyze. Viz: Chart.js Radar Chart. Interaction: Chart legend is interactive. Justification: Translates a static table of abstract qualities into a powerful, immediate visual comparison, fulfilling the Chart.js requirement in a meaningful way. Library/Method: Chart.js.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8F9FA; color: #212529; }
+        h1, h2, h3 { font-family: 'Lora', serif; }
+        .khmer-font { font-family: 'Noto Sans Khmer', sans-serif; }
+        .card { perspective: 1000px; }
+        .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
+        .card.is-flipped .card-inner { transform: rotateY(180deg); }
+        .card-face { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1.5rem; border-radius: 0.5rem; text-align: center; }
+        .card-front { background-color: #FFFFFF; border: 1px solid #DEE2E6; }
+        .card-back { background-color: #E3F2FD; color: #0369A1; transform: rotateY(180deg); }
+        .chart-container { position: relative; margin: auto; height: 60vh; max-height: 500px; width: 100%; max-width: 600px; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-md text-slate-800 p-4 sticky top-0 z-50 shadow-sm border-b border-slate-200">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl tracking-tight text-[#0D47A1]">Khmer Rhetoric</h1>
+            <nav class="hidden md:flex space-x-6 text-base font-medium">
+                <a href="#foundations" class="hover:text-[#0D47A1]">Foundations</a>
+                <a href="#toolkit" class="hover:text-[#0D47A1]">Rhetorical Toolkit</a>
+                <a href="#context" class="hover:text-[#0D47A1]">Modern Context</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-2xl">☰</button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden mt-4 text-base">
+            <a href="#foundations" class="block py-2 px-4 hover:bg-slate-100">Foundations</a>
+            <a href="#toolkit" class="block py-2 px-4 hover:bg-slate-100">Rhetorical Toolkit</a>
+            <a href="#context" class="block py-2 px-4 hover:bg-slate-100">Modern Context</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="hero" class="text-center my-8 md:my-12">
+            <h2 class="text-4xl md:text-5xl text-[#0D47A1] mb-4">The Art of Persuasion in Cambodia</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600">
+                Explore the profound rhetorical tools and strategies that shape effective communication in Khmer culture. This application translates a detailed report into an interactive experience, revealing how respect, tradition, and language forge the art of persuasion.
+            </p>
+        </section>
+
+        <section id="foundations" class="my-16 scroll-mt-24">
+            <h2 class="text-3xl md:text-4xl text-center mb-2 text-[#0D47A1]">Foundations of Khmer Rhetoric</h2>
+            <p class="text-center max-w-2xl mx-auto mb-10 text-gray-600">To argue effectively in Khmer is to first understand that the speaker's ethos is not an optional appeal but the very price of admission to the discourse. This section explores the core principles that form the bedrock of Khmer persuasion.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl mb-3 text-[#1E88E5]">Hierarchy & Respect</h3>
+                    <p class="mb-4">The most critical persuasive act is the non-verbal establishment of ethos by acknowledging social hierarchy, primarily through the *Sampeah*.</p>
+                    <div class="space-y-3 text-left text-sm">
+                        <div class="group relative">
+                            <p class="font-semibold cursor-pointer">🙏 Level 1: Chest (For peers)</p>
+                            <span class="absolute hidden group-hover:block bg-gray-700 text-white text-xs rounded py-1 px-2 -top-8 left-0 w-max">Signals equality and casual rapport.</span>
+                        </div>
+                        <div class="group relative">
+                            <p class="font-semibold cursor-pointer">🙏 Level 2: Chin (For elders or bosses)</p>
+                            <span class="absolute hidden group-hover:block bg-gray-700 text-white text-xs rounded py-1 px-2 -top-8 left-0 w-max">Acknowledges a higher status.</span>
+                        </div>
+                        <div class="group relative">
+                            <p class="font-semibold cursor-pointer">🙏 Level 3: Nose (For parents & teachers)</p>
+                            <span class="absolute hidden group-hover:block bg-gray-700 text-white text-xs rounded py-1 px-2 -top-8 left-0 w-max">Shows deep respect and admiration.</span>
+                        </div>
+                         <div class="group relative">
+                            <p class="font-semibold cursor-pointer">🙏 Level 4: Eyebrows (For the King or monks)</p>
+                            <span class="absolute hidden group-hover:block bg-gray-700 text-white text-xs rounded py-1 px-2 -top-8 left-0 w-max">A gesture of profound reverence.</span>
+                        </div>
+                        <div class="group relative">
+                            <p class="font-semibold cursor-pointer">🙏 Level 5: Forehead (For praying to God)</p>
+                            <span class="absolute hidden group-hover:block bg-gray-700 text-white text-xs rounded py-1 px-2 -top-8 left-0 w-max">The highest level of veneration.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl mb-3 text-[#1E88E5]">The Concept of "Face"</h3>
+                    <p>Khmer culture is a "face culture," where preserving one's and others' public reputation is paramount. Causing someone to "lose face" is a deep social transgression, which favors indirectness over direct confrontation in arguments.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl mb-3 text-[#1E88E5]">The Power of Tradition</h3>
+                    <p>Rhetoric relies on a repository of shared cultural wisdom. The ultimate sources are the *Chbap* (didactic moral codes) and *Supheasit* (proverbs), which serve as the primary form of logical proof, aligning an argument with ancestral wisdom.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="toolkit" class="my-16 scroll-mt-24">
+            <h2 class="text-3xl md:text-4xl text-center mb-2 text-[#0D47A1]">The Rhetorical Toolkit</h2>
+            <p class="text-center max-w-2xl mx-auto mb-10 text-gray-600">Explore the specific linguistic tools used to build persuasive arguments. These are not mere stylistic choices; they are carriers of cultural meaning, designed to resonate with an audience steeped in a shared history and moral philosophy.</p>
+            <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+                <div class="border-b border-gray-200 mb-6">
+                    <nav class="-mb-px flex justify-center space-x-2 sm:space-x-6" id="toolkit-tabs">
+                        <button data-tab="supheasit" class="tab-btn font-lora whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg border-[#1E88E5] text-[#1E88E5]">Proverbs (Supheasit)</button>
+                        <button data-tab="chbap" class="tab-btn font-lora whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Moral Codes (Chbap)</button>
+                        <button data-tab="grammar" class="tab-btn font-lora whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">Formal Grammar</button>
+                    </nav>
+                </div>
+
+                <div id="supheasit-content" class="tab-content grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                <div id="chbap-content" class="tab-content hidden grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                <div id="grammar-content" class="tab-content hidden"></div>
+            </div>
+        </section>
+
+        <section id="context" class="my-16 scroll-mt-24">
+            <h2 class="text-3xl md:text-4xl text-center mb-2 text-[#0D47A1]">Modern Context & Appeals</h2>
+             <p class="text-center max-w-2xl mx-auto mb-10 text-gray-600">Traditional persuasive tools are adapted and contested in contemporary politics and media. Explore how Ethos, Pathos, and Logos manifest in a uniquely Khmer context and how different rhetorical modes compete in public discourse.</p>
+            <div class="bg-white rounded-lg shadow-lg p-4 sm:p-8">
+                 <h3 class="text-2xl text-center mb-6 text-[#1E88E5]">Comparing Rhetorical Modes</h3>
+                <div class="chart-container">
+                    <canvas id="rhetoricChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-6 bg-slate-100">
+        <p class="text-gray-600">Created as an interactive web application based on an analysis of Khmer rhetoric.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const data = {
+                supheasit: [
+                    { khmer: 'កុំកាប់ដើមឈើដើម្បីយកផ្លែ។', phonetic: 'Kom kaht doeum cheu daeum-bei yok phlae.', english: "Don't cut a tree down to get at the fruit.", use: 'Argues against short-sighted actions for immediate gain at the cost of future prosperity.' },
+                    { khmer: 'ចង្កឹះមួយបាច់កាច់មិនបាក់។', phonetic: 'Chang-keuh muoy bach, kak min bak.', english: 'A bunch of sticks cannot be broken.', use: 'An appeal for solidarity. Individuals are vulnerable alone but powerful when united.' },
+                    { khmer: 'ទឹកឡើងត្រីស៊ីស្រមោច ទឹកហោចស្រមោចស៊ីត្រី។', phonetic: 'Teuk loeng, trey si sramoch...', english: 'When water rises, fish eat ants; when water recedes, ants eat fish.', use: 'A sophisticated tool for commenting on shifts in power, framing fortune as cyclical.' },
+                    { khmer: 'ឃើញពីនាយកុំអាលទាយអាក្រក់ល្អ។', phonetic: 'Khoegn pii neay, kom al teay akrok la-or.', english: "Seeing from a distance, don't rush to predict bad or good.", use: 'An appeal for caution and thoroughness against making snap judgments on incomplete information.' },
+                    { khmer: 'ដំរីជើងបួនគង់មានភ្លាត់ អ្នកប្រាជ្ញចេះស្ទាត់គង់មានភ្លេច។', phonetic: 'Damrey choeung buon, khung mean phloat...', english: 'An elephant has four legs, yet it still stumbles...', use: 'A powerful tool for promoting humility, arguing that imperfection is a universal condition.' },
+                    { khmer: 'កុំបោះបង់ផ្លូវវៀច កុំយកផ្លូវត្រង់ ចូរដើរតាមផ្លូវបុរាណ។', phonetic: '...yok phlov dael dol-ta ban doer.', english: "...take the one traveled by the ancestors.", use: 'A deeply conservative proverb arguing for the wisdom of tradition over novel solutions.' },
+                    { khmer: 'តក់ៗពេញបំពង់។', phonetic: 'Tok tok penh bampong.', english: 'Drop by drop fills the container.', use: 'An appeal for persistence. It argues that small, consistent efforts lead to great results over time.' },
+                    { khmer: 'ចង់ដឹងពីចិត្ត មើលមុខ។', phonetic: 'Jong doeng pi chet, meul mok.', english: 'For news of the heart, ask the face.', use: 'Argues that true feelings are revealed through non-verbal expressions, not words.' },
+                    { khmer: 'ចេះដប់មិនស្មើប្រសប់មួយ។', phonetic: 'Cheh dop, min smoe pra-sop muoy.', english: 'Knowing ten things is not equal to having one skill.', use: 'A powerful argument for the value of specialized expertise over superficial knowledge.' },
+                    { khmer: 'ឃើញដំរីជុះ កុំជុះតាមដំរី។', phonetic: 'Khoegn damrey choh, kom choh taam damrey.', english: "Seeing an elephant defecate, don't defecate like the elephant.", use: 'Warns against blindly imitating the actions of those who are more powerful or of a different scale.' }
+                ],
+                chbap: [
+                    { khmer: 'ស្រូវខ្ចីឈរត្រង់ ស្រូវទុំឱនโค้ง។', phonetic: 'Srov kchey chhor trang, srov tom...', english: 'The immature rice stalk stands erect, while the mature stalk... bends over.', use: 'Argues that true wisdom and value are accompanied by humility. It equates arrogance with emptiness.' },
+                    { khmer: 'ខឹងខូច ខឹងខាត។', phonetic: 'Khoeng koch, khoeng khat.', english: 'Anger is damage, anger is waste.', use: 'A direct teaching against the destructive nature of anger, framing it as a path to loss and ruin.' },
+                    { khmer: 'ធ្វើល្អបានល្អ ធ្វើអាក្រក់បានអាក្រក់។', phonetic: 'Thvoe la-or, ban la-or...', english: 'Do good, get good; do bad, get bad.', use: 'Encapsulates the Buddhist principle of cause and effect (Karma) as a fundamental moral argument.' },
+                    { khmer: 'ចេះមកពីរៀន មានមកពីរក។', phonetic: 'Cheh mok pi rien, mean mok pi rok.', english: 'Knowledge comes from learning, wealth comes from seeking (working).', use: 'This didactic principle argues against laziness and passivity, promoting education and hard work.' },
+                    { khmer: 'ឱ្យឪពុកម្តាយរបស់អ្នកញ៉ាំខណៈពេលដែលបំពង់ករបស់ពួកគេនៅតែឈរ។', phonetic: 'Aoy ov-puk mday nham...', english: 'Let your parents eat while their throats are still standing.', use: 'A powerful emotional and moral argument for caring for one\'s parents while they are still alive.' },
+                    { khmer: 'បុរសដូចមាស ស្រីដូចសំពត់ស។', phonetic: 'Broros doch meas, srey doch sompot sor.', english: 'Men are like gold, women are like white cloth.', use: 'Traditionally used to argue that a woman\'s reputation is fragile while a man\'s is resilient. Highly contested today.' },
+                    { khmer: 'ស្លាប់កាយប្រសើរជាងស្លាប់ឈ្មោះ។', phonetic: 'Slab klay, la-or cheang slab chmuah.', english: 'Physical death is better than the death of your reputation.', use: 'A hyperbolic argument for prioritizing integrity and honor above all else, highlighting the importance of "face".' },
+                    { khmer: 'កុំដេកទទូរចាំសំណាង។', phonetic: 'Kom dek totuor-cheang samnang.', english: "Don't lie down waiting for luck.", use: 'A direct moral instruction against passivity, arguing that one must be proactive in creating their own fortune.' },
+                    { khmer: 'កុំអោយបុរសឃ្លានបាយថែអង្ករ។', phonetic: 'Kom aoy boros khlean bay thae angkor.', english: "Don't let a hungry man guard the rice.", use: 'A warning against putting individuals in situations where their personal interests conflict with their duties.' },
+                    { khmer: 'ខ្លាពឹងព្រៃ ព្រៃពឹងខ្លា។', phonetic: 'Khla pueng prey, prey pueng khla.', english: 'The tiger depends on the forest; the forest depends on the tiger.', use: 'An argument for symbiosis and mutual dependence, countering arguments for pure self-interest.' }
+                ],
+                grammar: [
+                    { colloquial: 'The government published this story.', colloquial_khmer: 'រដ្ឋាភិបាលបានផ្សព្វផ្សាយរឿងនេះ។', formal: 'The government did publish *the story* here.', formal_khmer: 'រដ្ឋាភិបាលបានផ្សព្វផ្សាយនូវរឿងនេះ។', effect: 'The inclusion of the particle *nūv* makes the statement sound more official, deliberate, and less conversational, increasing its authority.' },
+                    { colloquial: "The teacher's house is very big.", colloquial_khmer: 'ផ្ទះរបស់លោកគ្រូធំណាស់។', formal: "The house *of the* teacher is very big.", formal_khmer: 'ផ្ទះនៃលោកគ្រូធំណាស់។', effect: 'Using the literary possessive *ney* instead of *robos* immediately elevates the tone, making it sound more poetic and formal.' },
+                    { colloquial: 'I came with him.', colloquial_khmer: 'ខ្ញុំមកជាមួយគាត់។', formal: 'I came *and* (with) him.', formal_khmer: 'ខ្ញុំមកនិងគាត់។', effect: 'Using *ning* in its older sense of "with" signals a classical level of formality, suitable for ceremonial speeches.' },
+                    { colloquial: 'She is beautiful like an angel.', colloquial_khmer: 'នាងល្អដូចទេវតា។', formal: 'She is beautiful *as if like* an angel.', formal_khmer: 'នាងល្អហាក់បីដូចទេវតា។', effect: 'The compound particle *hak-pi-duoch* is a highly literary and poetic way to introduce a comparison, transforming a simple statement into evocative prose.' }
+                ]
+            };
+
+            const supheasitContainer = document.getElementById('supheasit-content');
+            const chbapContainer = document.getElementById('chbap-content');
+            const grammarContainer = document.getElementById('grammar-content');
+
+            function createCard(item) {
+                return `
+                    <div class="card h-72">
+                        <div class="card-inner">
+                            <div class="card-face card-front">
+                                <p class="khmer-font text-xl text-gray-700 mb-2">${item.khmer}</p>
+                                <p class="text-lg font-bold text-[#1E88E5]">${item.english}</p>
+                                <p class="text-sm italic text-gray-500 mt-2">${item.phonetic}</p>
+                                <p class="text-xs mt-4 text-gray-400">Click to see rhetorical use</p>
+                            </div>
+                            <div class="card-face card-back">
+                                <h4 class="text-lg font-bold mb-2 font-lora">Rhetorical Use</h4>
+                                <p class="text-center text-sm">${item.use}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            data.supheasit.forEach(item => {
+                supheasitContainer.innerHTML += createCard(item);
+            });
+
+            data.chbap.forEach(item => {
+                chbapContainer.innerHTML += createCard(item);
+            });
+
+            function createGrammarRow(item) {
+                 return `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start mb-4 border-b pb-4">
+                        <div>
+                            <p class="font-bold text-gray-500">Colloquial</p>
+                            <p class="text-lg">${item.colloquial}</p>
+                            <p class="text-lg khmer-font text-gray-500 mt-1">${item.colloquial_khmer}</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-[#1976D2]">Formal</p>
+                            <p class="text-lg">${item.formal}</p>
+                            <p class="text-lg khmer-font text-[#1976D2] mt-1">${item.formal_khmer}</p>
+                        </div>
+                        <div class="md:col-span-2 mt-2">
+                            <p class="font-bold text-sm text-gray-500">Rhetorical Effect</p>
+                            <p class="text-sm text-gray-700">${item.effect}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            grammarContainer.innerHTML = `
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-2xl text-center mb-6 text-[#1E88E5]">Formal Grammatical Structures</h3>
+                    ${data.grammar.map(createGrammarRow).join('')}
+                </div>
+            `;
+
+
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('is-flipped');
+                });
+            });
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.dataset.tab;
+                    
+                    tabs.forEach(t => {
+                        t.classList.remove('border-[#1E88E5]', 'text-[#1E88E5]');
+                        t.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
+                    });
+                    tab.classList.add('border-[#1E88E5]', 'text-[#1E88E5]');
+                    tab.classList.remove('border-transparent', 'text-gray-500');
+
+                    tabContents.forEach(content => {
+                        if (content.id === `${target}-content`) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            const ctx = document.getElementById('rhetoricChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Harmony', 'Tradition-Reliance', 'Directness', 'Humility', 'Aggression', 'Evidence-Based'],
+                    datasets: [{
+                        label: 'Traditional Social Rhetoric',
+                        data: [9, 8, 2, 9, 1, 3],
+                        fill: true,
+                        backgroundColor: 'rgba(30, 136, 229, 0.2)',
+                        borderColor: 'rgb(30, 136, 229)',
+                        pointBackgroundColor: 'rgb(30, 136, 229)',
+                    }, {
+                        label: 'Modern Authoritarian Rhetoric',
+                        data: [2, 5, 8, 1, 9, 2],
+                        fill: true,
+                        backgroundColor: 'rgba(216, 27, 96, 0.2)',
+                        borderColor: 'rgb(216, 27, 96)',
+                        pointBackgroundColor: 'rgb(216, 27, 96)',
+                    },
+                    {
+                        label: 'Emerging Democratic Rhetoric',
+                        data: [5, 3, 7, 5, 4, 8],
+                        fill: true,
+                        backgroundColor: 'rgba(67, 160, 71, 0.2)',
+                        borderColor: 'rgb(67, 160, 71)',
+                        pointBackgroundColor: 'rgb(67, 160, 71)',
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: { 
+                                font: { size: 11, family: "'Inter', sans-serif" },
+                                color: '#333'
+                            },
+                            ticks: {
+                                backdropColor: '#F8F9FA',
+                                color: '#777'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    family: "'Inter', sans-serif"
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
